@@ -1,18 +1,20 @@
 version: '2'
 services:
     drupal8:
-        image: ngako/drupal8
+        build: .
         volumes:
-            - "./src:/home/dev/src"
+            - "./app:/home/dev/app"
         environment:
-            - LOCAL_USER_ID="$${id -u $USER}"
+            LOCAL_USER_NAME: ${USER}
+            LOCAL_USER_ID: ${USER_ID}
         restart: always
         depends_on:
             - db
         links:
-            - db
+            - db:mysql
         ports:
-            - "80:8080"
+            - "8080:80"
+        container_name: drupal8-app
     db:
         image: mysql
         restart: always
