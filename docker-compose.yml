@@ -1,0 +1,28 @@
+version: '2'
+services:
+    drupal8:
+        image: ngako/drupal8
+        volumes:
+            - "./src:/home/dev/src"
+        environment:
+            - LOCAL_USER_ID="$${id -u $USER}"
+        restart: always
+        depends_on:
+            - db
+        links:
+            - db
+        ports:
+            - "80:8080"
+    db:
+        image: mysql
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: drupal8
+            MYSQL_USER: drupal8
+            MYSQL_USER_PASSWORD: drupal8
+            
+        
+        
+        
+        
