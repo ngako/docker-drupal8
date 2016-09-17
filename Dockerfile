@@ -1,9 +1,6 @@
 FROM drupal:8.1.9-apache
 MAINTAINER laurent NGAKO <laurent.ngako@gmail.com>
 
-# Copy custom php.ini
-COPY conf/php/php.ini /usr/local/etc/php/
-
 # Install vim and git
 RUN apt-get update -y \
     && apt-get install vim -y \
@@ -21,12 +18,6 @@ RUN php -r "readfile('https://drupalconsole.com/installer');" > drupal.phar
 RUN mv drupal.phar /usr/local/bin/drupal
 RUN chmod +x /usr/local/bin/drupal
 
-# Create src folder
-RUN mkdir -p /home/dev/src/sites
-
-# Copy src
-COPY ./src/* /home/dev/src/
-
 # Add gosu
 ENV GOSU_VERSION 1.9
 RUN set -x \
@@ -42,7 +33,23 @@ RUN set -x \
     && gosu nobody true \
     && apt-get purge -y --auto-remove ca-certificates wget
 
-COPY entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+# Create src folder
+RUN mkdir -p /home/dev/app
 
+# Copy src
+COPY ./app /home/dev/app/
+
+# Add custom php.ini
+RUN ln -s /home/dev/app/conf/php/php.ini /usr/local/etc/php/php.ini
+
+# Link src folders
+RUN rm -rf /var/www/html/modules
+RUN rm -rf /var/www/html/themes
+RUN rm -rf /var/www/html/profiles
+RUN ln -s /home/dev/app/drupal-src/modules /var/www/html/modules
+RUN ln -s /home/dev/app/drupal-src/themes /var/www/html/themes
+RUN ln -s /home/dev/app/drupal-src/themes /var/www/html/themes
+
+# Set working directory
+WORKDIR /home/dev/app
 
