@@ -4,7 +4,8 @@ MAINTAINER laurent NGAKO <laurent.ngako@gmail.com>
 # Install vim and git
 RUN apt-get update -y \
     && apt-get install vim -y \
-    && apt-get install git -y
+    && apt-get install git -y \
+    && apt-get install wget -y
 
 # Install composer
 WORKDIR /tmp
@@ -21,7 +22,7 @@ RUN chmod +x /usr/local/bin/drupal
 # Add gosu
 ENV GOSU_VERSION 1.9
 RUN set -x \
-    && apt-get update && apt-get install -y --no-install-recommends ca-certificates wget && rm -rf /var/lib/apt/lists/* \
+    && apt-get update && apt-get install -y --no-install-recommends ca-certificates && rm -rf /var/lib/apt/lists/* \
     && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" \
     && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" \
@@ -31,7 +32,7 @@ RUN set -x \
     && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true \
-    && apt-get purge -y --auto-remove ca-certificates wget
+    && apt-get purge -y --auto-remove ca-certificates
 
 # Create src folder
 RUN mkdir -p /home/dev/app
@@ -41,6 +42,9 @@ COPY ./app /home/dev/app/
 
 # Add custom php.ini
 RUN ln -s /home/dev/app/conf/php/php.ini /usr/local/etc/php/php.ini
+# Install last CA.
+RUN mkdir -p /usr/share/ca-certificates
+RUN  cp /home/dev/app/conf/cacert-2016-09-14.pem /usr/share/ca-certificates/
 
 # Link src folders
 RUN rm -rf /var/www/html/modules
@@ -48,7 +52,7 @@ RUN rm -rf /var/www/html/themes
 RUN rm -rf /var/www/html/profiles
 RUN ln -s /home/dev/app/drupal-src/modules /var/www/html/modules
 RUN ln -s /home/dev/app/drupal-src/themes /var/www/html/themes
-RUN ln -s /home/dev/app/drupal-src/themes /var/www/html/themes
+RUN ln -s /home/dev/app/drupal-src/profiles /var/www/html/profiles
 
 # Set working directory
 WORKDIR /home/dev/app
