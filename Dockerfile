@@ -1,4 +1,4 @@
-FROM drupal:8.1.9-apache
+FROM drupal:8.2.1-apache
 MAINTAINER laurent NGAKO <laurent.ngako@gmail.com>
 
 # Install vim and git
