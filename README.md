@@ -19,3 +19,7 @@ docker-compose up -d
 ```
 docker exec -it drupal8-app bash
 ```
+
+## Mistakes
+- You can have some errors regarding translation during installation when you select other language that english.
+> To evoid this. select english as language. see detail [here](http://drupal.stackexchange.com/questions/164172/problem-installing-drupal-8-in-local-the-translation-server-is-offline)

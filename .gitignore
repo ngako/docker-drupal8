@@ -1,3 +1,4 @@
 nbproject
 drupal-8.1.9
-/app/drupal-src/modules/contrib/
+app/drupal-src/modules/contrib/
+app/drupal-src/sites/default/files/
