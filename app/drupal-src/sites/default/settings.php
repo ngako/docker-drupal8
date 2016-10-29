@@ -244,7 +244,9 @@
  *   );
  * @endcode
  */
-$config_directories = array();
+$config_directories = array(
+    CONFIG_SYNC_DIRECTORY => '/home/dev/app/config_sync_directory'
+);
 
 /**
  * Settings:
