@@ -43,7 +43,7 @@ add-local-user
   Failed to enable crypto                                                                                                                      
   failed to open stream: operation failed
   ```
-  you can solve this and follow step bellow:
+  you can solve this and follow step below:
 
   `Douwload the [Mozilla CA certificate store](https://curl.haxx.se/ca/cacert.pem)`
   `Update your php.ini file and set openssl.cafile with the path of cacert.pem that you just download`
