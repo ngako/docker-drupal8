@@ -13,6 +13,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 RUN php -r "if (hash_file('SHA384', 'composer-setup.php') === 'e115a8dc7871f15d853148a7fbac7da27d6c0030b848d9b3dc09e2a0388afed865e6a3d6b3c0fad45c48e2b5fc1196ae') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
+RUN mv composer.phar /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/composer
 
 # Install drupalconsole
 RUN php -r "readfile('https://drupalconsole.com/installer');" > drupal.phar
@@ -54,10 +56,13 @@ RUN rm -rf /var/www/html/modules
 RUN rm -rf /var/www/html/themes
 RUN rm -rf /var/www/html/profiles
 RUN rm -rf /var/www/html/sites
+RUN rm -f /var/www/html/composer.json
+
 RUN ln -s /home/dev/app/drupal-src/modules /var/www/html/modules
 RUN ln -s /home/dev/app/drupal-src/themes /var/www/html/themes
 RUN ln -s /home/dev/app/drupal-src/profiles /var/www/html/profiles
 RUN ln -s /home/dev/app/drupal-src/sites /var/www/html/sites
+RUN ln -s /home/dev/app/drupal-src/composer.json /var/www/html/composer.json
 
 # Set working directory
 WORKDIR /home/dev/app

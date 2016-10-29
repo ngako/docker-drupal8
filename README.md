@@ -1,6 +1,6 @@
 # drupal8
-[Drupal](https://www.drupal.org/home) is an open source content management system.
-This docker-compose project can be use to launch a complete developpmemnt environnement for drupal version 8.x.
+[Drupal](https://www.drupal.org/home) Drupal is an open source content management platform powering millions of websites and applications.
+This docker-compose provide a sources elements to launch a complete developpmemnt environnement for drupal version 8.x.
 
 ## Table of Contents
 
@@ -31,6 +31,22 @@ add-local-user
 ``` 
 
 ## Mistakes
-- You can have some errors regarding translation during installation when you select other language that english.
+1) You can have some errors regarding translation during installation when you select other language that english.
 
 `To evoid this. select english as language. see detail [here](http://drupal.stackexchange.com/questions/164172/problem-installing-drupal-8-in-local-the-translation-server-is-offline)`
+
+2) If you have error bellow, when you lauch composer commande:
+```bash
+[Composer\Downloader\TransportException]                                                                                                     
+  The "https://packagist.org/packages.json" file could not be downloaded: SSL operation failed with code 1. OpenSSL Error messages:            
+  error:14090086:SSL routines:SSL3_GET_SERVER_CERTIFICATE:certificate verify failed                                                            
+  Failed to enable crypto                                                                                                                      
+  failed to open stream: operation failed
+  ```
+  you can solve this and follow step bellow:
+
+  `Douwload the [Mozilla CA certificate store](https://curl.haxx.se/ca/cacert.pem)`
+  `Update your php.ini file and set openssl.cafile with the path of cacert.pem that you just download`
+
+  3) If you receve a drupal upload image error 
+  `The file could not be saved because it exceeds 2 MB, the maximum allowed size for uploads.`
