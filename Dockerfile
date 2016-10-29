@@ -40,6 +40,9 @@ RUN mkdir -p /home/dev/app
 # Copy src
 COPY ./app /home/dev/app/
 
+# Create alias of the script to add dev USER 
+RUN ln -s /home/dev/app/conf/add-local-user.sh /usr/local/bin/add-local-user
+
 # Add custom php.ini
 RUN ln -s /home/dev/app/conf/php/php.ini /usr/local/etc/php/php.ini
 # Install last CA.
@@ -50,9 +53,11 @@ RUN  cp /home/dev/app/conf/cacert-2016-09-14.pem /usr/share/ca-certificates/
 RUN rm -rf /var/www/html/modules
 RUN rm -rf /var/www/html/themes
 RUN rm -rf /var/www/html/profiles
+RUN rm -rf /var/www/html/sites
 RUN ln -s /home/dev/app/drupal-src/modules /var/www/html/modules
 RUN ln -s /home/dev/app/drupal-src/themes /var/www/html/themes
 RUN ln -s /home/dev/app/drupal-src/profiles /var/www/html/profiles
+RUN ln -s /home/dev/app/drupal-src/sites /var/www/html/sites
 
 # Set working directory
 WORKDIR /home/dev/app
