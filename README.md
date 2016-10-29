@@ -36,7 +36,7 @@ add-local-user
 
 `To evoid this. select english as language. see detail [here](http://drupal.stackexchange.com/questions/164172/problem-installing-drupal-8-in-local-the-translation-server-is-offline)`
 
-2) If you have error bellow, when you lauch composer commande:
+2) If you have error below, when you lauch composer commande:
 ```bash
 [Composer\Downloader\TransportException]                                                                                                     
   The "https://packagist.org/packages.json" file could not be downloaded: SSL operation failed with code 1. OpenSSL Error messages:            
@@ -44,7 +44,8 @@ add-local-user
   Failed to enable crypto                                                                                                                      
   failed to open stream: operation failed
   ```
-  you can solve this and follow step below:
+  
+you can solve this and follow step below:
 
   `Douwload the [Mozilla CA certificate store](https://curl.haxx.se/ca/cacert.pem)`
   `Update your php.ini file and set openssl.cafile with the path of cacert.pem that you just download`
