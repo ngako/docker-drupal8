@@ -15,7 +15,7 @@ docker pull ngako/drupal8
 ```
 2) Create a container
 ```bash
-docker run -it --name <CONTAINER_NAME> -p 8080:80 -d ngako/drupal8
+docker run -it --name <CONTAINER_NAME> --link <CONTAINER_MYSQL_NAME>:mysql -p 8080:80 -d ngako/drupal8
 ```
 3) Go into your drupal container.
 ```bash
