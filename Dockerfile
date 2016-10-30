@@ -43,6 +43,7 @@ RUN mkdir -p /home/dev/app
 COPY ./app /home/dev/app/
 
 # Create alias of the script to add dev USER 
+RUN chmod +x /home/dev/app/conf/add-local-user.sh
 RUN ln -s /home/dev/app/conf/add-local-user.sh /usr/local/bin/add-local-user
 
 # Add custom php.ini
