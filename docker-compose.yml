@@ -1,7 +1,7 @@
 version: '2'
 services:
     drupal8:
-        build: .
+        image: ngako/drupal8
         volumes:
             - "./app:/home/dev/app"
         environment:
