@@ -44,6 +44,7 @@ COPY ./app /home/dev/app/
 
 # Create alias of the script to add dev USER 
 RUN ln -s /home/dev/app/conf/add-local-user.sh /usr/local/bin/add-local-user
+RUN chmod +x /usr/local/bin/add-local-user
 
 # Add custom php.ini
 RUN ln -s /home/dev/app/conf/php/php.ini /usr/local/etc/php/php.ini
