@@ -19,6 +19,7 @@ RUN chmod +x /usr/local/bin/composer
 # Install drupalconsole
 RUN php -r "readfile('https://drupalconsole.com/installer');" > drupal.phar
 RUN mv drupal.phar /usr/local/bin/drupal
+# Add x grant
 RUN chmod +x /usr/local/bin/drupal
 
 # Add gosu
